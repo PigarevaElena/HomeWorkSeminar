@@ -431,33 +431,69 @@ int temp = 0;
     Console.Write(rawNumber);
 }
 
+static int[,] MultyplayTwoMatrixes(int[,]first, int[,] second)
+{
+if (first.GetLength(0) != second.GetLength(1))
+{
+    Console.WriteLine("Не выполнено условие перемножения матриц");
+    return new int[0, 0];
+}
+
+int[,] resultArray = new int[first.GetLength(0), second.GetLength(1)];
+
+for (int i = 0; i < first.GetLength(0); i++)
+{
+    for (int j = 0; j < second.GetLength(1); j++)
+    {
+        resultArray[i, j] = 0;
+        for (int k = 0; k < first.GetLength(1); k++)
+        {
+            resultArray[i, j] += first[i, k] * second[k, j];
+        }
+    }
+}
+return resultArray;
+}
+
+
 
 
     static public void Main(string[] args) {
         
  // Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
 
-    //  int[,] myArray = Create2DArray(4, 5);
-    //  Fill2DArray(myArray);
-    //  PrintArray(myArray);
-    //  Console.WriteLine();
-    //  Sort2DArrayToDecreese(myArray);
-    //  PrintArray(myArray);
+     int[,] myArray = Create2DArray(4, 5);
+     Fill2DArray(myArray);
+     PrintArray(myArray);
+     Console.WriteLine();
+     Sort2DArrayToDecreese(myArray);
+     PrintArray(myArray);
        
 
 
  //  Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 
-    //  int[,] myArray = Create2DArray(5, 4);
-    //  Fill2DArray(myArray);
-    //  PrintArray(myArray);
-    //  Console.WriteLine();
-    //  FindRawWithMinimalSumOfElements(myArray);
+     int[,] myyArray = Create2DArray(5, 4);
+     Fill2DArray(myyArray);
+     PrintArray(myyArray);
+     Console.WriteLine();
+     FindRawWithMinimalSumOfElements(myyArray);
 
 
+// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
 
+     int[,] myArrayy = Create2DArray(5, 4);
+     Fill2DArray(myArrayy);
+     PrintArray(myArrayy);
+     Console.WriteLine();
 
+     int[,] myArray1 = Create2DArray(4, 5);
+     Fill2DArray(myArray1);
+     PrintArray(myArray1);
+     Console.WriteLine();
 
+    int[,] multyArr = MultyplayTwoMatrixes(myArrayy, myArray1);
+     PrintArray(multyArr);
     }
 }
 
