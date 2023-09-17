@@ -107,6 +107,67 @@ for (int i = 0; i < first.GetLength(0); i++)
 return resultArray;
 }
 
+static bool CheckNumberIn3DArray(int[,,] array, int number)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int k = 0; k < array.GetLength(2); k++)
+            {
+                if (array[i, j, k] == number) return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+static void Fill3DArray(int[,,] array)
+{
+    Random random = new Random();
+
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int k = 0; k < array.GetLength(2); k++)
+            {
+                while (array[i, j, k] == 0)
+                {
+                    int number = random.Next(0, 1000);
+
+                    if (CheckNumberIn3DArray(array, number) == false)
+                    {
+                        array[i, j, k] = number;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+static void Print3DArrayWithIdex(int[,,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int k = 0; k < array.GetLength(2); k++)
+            {
+                Console.Write(array[i, j, k]);
+                Console.Write("({0},{1},{2})  ", i, j, k);
+            }
+
+            Console.WriteLine();
+        }
+
+        Console.WriteLine();
+    }
+}
+
 
 
 
@@ -146,6 +207,13 @@ return resultArray;
 
     int[,] multyArr = MultyplayTwoMatrixes(myArrayy, myArray1);
      PrintArray(multyArr);
+
+
+    //Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных
+    // чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+
+  int [,,] my3dArray = new int [2,2,2];
+  Fill3DArray(my3dArray); 
+  Print3DArrayWithIdex(my3dArray);
     }
 }
-
