@@ -1,7 +1,7 @@
 ﻿using System;
 
 public class Answer {
-
+ // Решение задач в методе Main
     static int[,] Create2DArray(int rows, int columns)
 {
     return new int[rows, columns];
