@@ -1,219 +1,85 @@
-﻿using System;
+﻿
+// Задача 64: Задайте значение N. Напишите программу, 
+// которая выведет все натуральные числа в промежутке 
+// от N до 1. Выполнить с помощью рекурсии.
 
-public class Answer {
- // Решение задач в методе Main
-    static int[,] Create2DArray(int rows, int columns)
+
+int n = InputNumbers("Введите число: ");
+
+PrintNumbers(n);
+
+
+int InputNumbers(string input)
 {
-    return new int[rows, columns];
+    Console.Write(input);
+    int output = Convert.ToInt32(Console.ReadLine());
+    return output;
 }
 
-static void Fill2DArray(int[,] array)
-
+void PrintNumbers(int n)
 {
-    Random random = new Random();
-    for (int i = 0; i < array.GetLength(0); i++)
-        for (int j = 0; j < array.GetLength(1); j++)
-            array[i, j] = random.Next(0,100);
-}
-    
-
-    static void PrintArray(int[,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
+    if (n >= 1)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
-            Console.Write(array[i, j] + " ");
+        Console.Write(n);
         Console.WriteLine();
+        n--;
+        PrintNumbers(n);
 
     }
+    else
+    {
+        return;
+    }
+
 }
 
-static void Sort2DArrayToDecreese(int[,] array) 
+
+//Задача 66: Задайте значения M и N. 
+//Напишите программу, которая найдёт сумму натуральных элементов в 
+//промежутке от M до N.
+//M = 1; N = 15 -> 120
+//M = 4; N = 8. -> 30
+
+int M = InputNumbers("Введите  число M: ");
+int N = InputNumbers("Введите число N: ");
+int temp = M;
+
+if (M > N)
 {
- for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int k = 0; k < array.GetLength(1) - 1; k++)
-            {
-                if (array[i, k + 1] > array[i, k])
-            {
-                int temp = array[i, k + 1];
-                array[i, k + 1] = array[i, k];
-                array[i, k] = temp;
-            }
-            }
-        }
-    }
+    M = N;
+    N = temp;
 }
 
+PrintSumm(M, N, temp = 0);
+Console.WriteLine();
 
-static void FindRawWithMinimalSumOfElements(int[,] array) 
+void PrintSumm(int m, int n, int summ)
 {
-int rawNumber = 0;
-int minSum = 0;
-int temp = 0;
-
- for (int i = 0; i < array.GetLength(1); i++)
+    summ = summ + n;
+    if (n <= m)
     {
-     minSum += array[0,i];
+        Console.Write($"Сумма элементов = {summ} ");
+        return;
     }
-    Console.Write("Посчитали сумму нулевой строки");
-    Console.WriteLine();
-    Console.Write(minSum);
-    Console.WriteLine();
-    for (int i = 1; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-    {
-         temp += array[i,j];
-    }
-    Console.Write("Посчитали сумму строки");
-    Console.Write(i);
-    Console.WriteLine();
-    Console.Write(temp);
-    Console.WriteLine();
-    if(temp < minSum)
-    {
-        minSum = temp;
-        rawNumber = i;
-    }
-    }
-    Console.Write("Номер строки с минимальной суммой элементов(начинаем отсчет строк с нуля) равен ");
-    Console.Write(rawNumber);
+    PrintSumm(m, n - 1, summ);
 }
 
-static int[,] MultyplayTwoMatrixes(int[,]first, int[,] second)
+
+// Задача 68
+//Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии.
+//Даны два неотрицательных числа m и n.
+//m (используется переменная K)= 2, n используется переменная j = 3 -> A(m,n) = 9
+//m = 3, n = 2 -> A(m,n) = 29
+int k = InputNumbers("Введите M: ");
+int j = InputNumbers("Введите N: ");
+
+int functionAkkerman = Ack(k, j);
+
+Console.Write($"Функция Аккермана = {functionAkkerman} ");
+
+int Ack(int m, int n)
 {
-if (first.GetLength(0) != second.GetLength(1))
-{
-    Console.WriteLine("Не выполнено условие перемножения матриц");
-    return new int[0, 0];
-}
-
-int[,] resultArray = new int[first.GetLength(0), second.GetLength(1)];
-
-for (int i = 0; i < first.GetLength(0); i++)
-{
-    for (int j = 0; j < second.GetLength(1); j++)
-    {
-        resultArray[i, j] = 0;
-        for (int k = 0; k < first.GetLength(1); k++)
-        {
-            resultArray[i, j] += first[i, k] * second[k, j];
-        }
-    }
-}
-return resultArray;
-}
-
-static bool CheckNumberIn3DArray(int[,,] array, int number)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int k = 0; k < array.GetLength(2); k++)
-            {
-                if (array[i, j, k] == number) return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-
-static void Fill3DArray(int[,,] array)
-{
-    Random random = new Random();
-
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int k = 0; k < array.GetLength(2); k++)
-            {
-                while (array[i, j, k] == 0)
-                {
-                    int number = random.Next(0, 1000);
-
-                    if (CheckNumberIn3DArray(array, number) == false)
-                    {
-                        array[i, j, k] = number;
-                    }
-                }
-
-            }
-        }
-    }
-}
-
-static void Print3DArrayWithIdex(int[,,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int k = 0; k < array.GetLength(2); k++)
-            {
-                Console.Write(array[i, j, k]);
-                Console.Write("({0},{1},{2})  ", i, j, k);
-            }
-
-            Console.WriteLine();
-        }
-
-        Console.WriteLine();
-    }
-}
-
-
-
-
-    static public void Main(string[] args) {
-        
- // Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
-
-     int[,] myArray = Create2DArray(4, 5);
-     Fill2DArray(myArray);
-     PrintArray(myArray);
-     Console.WriteLine();
-     Sort2DArrayToDecreese(myArray);
-     PrintArray(myArray);
-       
-
-
- //  Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-
-     int[,] myyArray = Create2DArray(5, 4);
-     Fill2DArray(myyArray);
-     PrintArray(myyArray);
-     Console.WriteLine();
-     FindRawWithMinimalSumOfElements(myyArray);
-
-
-// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
-
-     int[,] myArrayy = Create2DArray(5, 4);
-     Fill2DArray(myArrayy);
-     PrintArray(myArrayy);
-     Console.WriteLine();
-
-     int[,] myArray1 = Create2DArray(4, 5);
-     Fill2DArray(myArray1);
-     PrintArray(myArray1);
-     Console.WriteLine();
-
-    int[,] multyArr = MultyplayTwoMatrixes(myArrayy, myArray1);
-     PrintArray(multyArr);
-
-
-    //Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных
-    // чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
-
-  int [,,] my3dArray = new int [2,2,2];
-  Fill3DArray(my3dArray); 
-  Print3DArrayWithIdex(my3dArray);
-    }
+    if (m == 0) return n + 1;
+    else if (n == 0) return Ack(m - 1, 1);
+    else return Ack(m - 1, Ack(m, n - 1));
 }
